@@ -38,46 +38,21 @@ module.exports.run = async (client, message, args, level) => {
       const moderator = client.users.cache.get(i.moderator);
       if ((i.points * 604800000) + i.date > time) {
         curPoints += i.points;
-        curMsg += `\n• Case ${i.case} -${level >= 2 ? ` ${moderator ? `Mod: ${moderator.tag}` : `Unknown Mod ID: ${i.moderator || 'No ID Stored'}`} -` : ''} (${moment.utc(i.date).format('DD MMM YYYY HH:mm')} UTC) ${i.points} warn${i.points === 1 ? '' : 's'}\n> Reason: ${i.reason}`;
+        curMsg += `\n• **Case** ${i.case} -${level >= 2 ? ` ${moderator ? `**Mod:** ${moderator.tag}` : `Unknown Mod ID: ${i.moderator || 'No ID Stored'}`} -` : ''} (${moment.utc(i.date).format('DD MMM YYYY')} UTC) ${i.points} warn${i.points === 1 ? '' : 's'}\n> Reason: ${i.reason}`;
       } else {
         expPoints += i.points;
-        expMsg += `\n• Case ${i.case} -${level >= 2 ? ` ${moderator ? `Mod: ${moderator.tag}` : `Unknown Mod ID: ${i.moderator || 'No ID Stored'}`} -` : ''} (${moment.utc(i.date).format('DD MMM YYYY HH:mm')} UTC) ${i.points} warn${i.points === 1 ? '' : 's'}\n> Reason: ${i.reason}`;
+        expMsg += `\n• **Case** ${i.case} -${level >= 2 ? ` ${moderator ? `**Mod:** ${moderator.tag}` : `Unknown Mod ID: ${i.moderator || 'No ID Stored'}`} -` : ''} (${moment.utc(i.date).format('DD MMM YYYY')} UTC) ${i.points} warn${i.points === 1 ? '' : 's'}\n> Reason: ${i.reason}`;
       }
     }
   });
-
-  if (curMsg) {
-    msg += `\n**Current warns (${curPoints} total):**${curMsg}`;
-  }
-  if (expMsg) {
-    msg += `\n**Expired warns (${expPoints} total):**${expMsg}`;
-  }
-
+  
   // Where to send message
-  if (args.length > 0 && level >= 2) {
-    if (curMsg || expMsg) {
-      return message.channel.send(msg, { split: true });
-    }
-    // No infractions
+  // No infractions
+  if(curPoints === 0) {
     return message.channel.send(`${member.guild ? member.user.tag : `${member.username}#${member.discriminator}`} doesn't have any warnings!`);
   }
-  // Try to send DM
-  try {
-    const dmChannel = await member.createDM();
-    if (curMsg || expMsg) {
-      await dmChannel.send(msg, { split: true });
-    } else {
-      await dmChannel.send('You do not have any warnings!');
-    }
-    return message.channel.send("I've sent you a DM!");
-  } catch (e) {
-    // Send basic version in channel
-    if (curMsg || expMsg) {
-      return message.channel.send(`I was unable to send a detailed list of your warnings to your direct messages, so here is some basic info:
-**Current bee stings**: ${curPoints} sting${curPoints === 1 ? '' : 's'}
-**Expired bee stings**: ${expPoints} sting${expPoints === 1 ? '' : 's'}`);
-    }
-    return message.channel.send('You do not have any warnings!');
+  else {
+    return message.channel.send(msg += curMsg, { split: true });
   }
 };
 

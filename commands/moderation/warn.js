@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args, level, Discord) => {
     }
   });
 
-  let dmMsg = `You have been warned in FGL E-Sports for reason: ${reason}.`;
+  let dmMsg = `You have been warned in ${message.guild.name} for reason: ${reason}.`;
   let action = 'Warn';
   let mute = 0;
   let ban = false;

@@ -2,7 +2,7 @@ module.exports.run = async (client, message, args) => {
   const caseNum = parseInt(args[0], 10);
 
   if (!(caseNum > 0)) {
-    return client.error(message.channel, 'Invalid Number!', 'Please provide a valid case number to apply medicine to!');
+    return client.error(message.channel, 'Invalid Number!', 'Please provide a valid case number to delete.');
   }
 
   if (client.infractionDB.has(caseNum.toString())) {
@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
     client.userDB.set(userID, infs.filter((inf) => inf.case !== caseNum), 'infractions');
     // Notify that the infraction was removed
     const user = await client.users.fetch(userID);
-    return client.success(message.channel, 'Medicine Applied!', `**${user.tag}** was given medicine to cure **${infRemoved.points}** bee sting${infRemoved.points === 1 ? '' : 's'} from case number **${caseNum}**!`);
+    return client.success(message.channel, 'Deleted Warning Successfully!', `**${user.tag}** had their warn removed successfully.`);
   }
 
   return client.error(message.channel, 'Invalid Case Number!', 'Please provide a valid case number to apply medicine to!');
