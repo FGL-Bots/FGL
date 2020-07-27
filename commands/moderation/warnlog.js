@@ -88,7 +88,7 @@ module.exports.conf = {
 };
 
 module.exports.help = {
-  name: 'beestinglog',
+  name: 'warnlog',
   category: 'moderation',
   description: 'Shows a list of warnings given to a member',
   usage: 'beestinglog <@member>',
