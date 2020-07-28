@@ -43,6 +43,10 @@ module.exports = (client) => {
     return owner;
   };
 
+  client.info = (channel, suc, msg) => {
+    channel.send(`${client.emoji.gameDie} **${suc}**\n${msg}`, { split: true });
+  };
+
   client.success = (channel, suc, msg) => {
     channel.send(`${client.emoji.checkMark} **${suc}**\n${msg}`, { split: true });
   };

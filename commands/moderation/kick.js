@@ -3,19 +3,6 @@ module.exports.run = async (client, message, args, level) => {
   // Setting member to first member memntioned
   let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
-  if (!member) {
-    const searchedMember = client.searchMember(args[0]);
-    if (searchedMember) {
-      const decision = await client.reactPrompt(message, `Would you like to kick \`${searchedMember.user.tag}\`?`);
-      if (decision) {
-        member = searchedMember;
-      } else {
-        message.delete().catch((err) => console.error(err));
-        return client.error(message.channel, 'Member Not Kicked!', 'The prompt timed out, or you selected no.');
-      }
-    }
-  }
-
   // If no member mentioned, display this message
   if (!member) {
     return client.error(message.channel, 'Invalid Member!', 'Please mention a valid member of this server!');
@@ -28,6 +15,15 @@ module.exports.run = async (client, message, args, level) => {
 
   // Sets reason shown in audit logs
   const reason = args[1] ? args.slice(1).join(' ') : 'No reason provided';
+
+  try {
+    const dmChannel = await member.createDM();
+    await dmChannel.send(`You have been kicked from the ${message.guild.name} server for the following reason:
+**${reason}**`);
+  } catch (e) {
+    client.error(message.guild.channels.cache.get(client.config.staffChat), 'Failed to Send DM to Member!', "I've failed to send a dm to the most recent member kicked. They most likely had dms off.");
+  }
+
 
   // Kicks the member
   await member.kick(reason).catch((error) => client.error(message.channel, 'Kick Failed!', `I've failed to kick this member! Error: ${error}`));
