@@ -15,7 +15,7 @@ module.exports.run = (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['ub'],
-  permLevel: 'Moderator',
+  permLevel: 'Senior Moderator',
   args: 1,
 };
 

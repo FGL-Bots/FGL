@@ -48,7 +48,7 @@ ${client.config.banAppealLink}`);
 module.exports.conf = {
   guildOnly: true,
   aliases: ['b'],
-  permLevel: 'Moderator',
+  permLevel: 'Senior Moderator',
   args: 1,
 };
 
