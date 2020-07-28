@@ -1,5 +1,5 @@
 module.exports = async (client, messageReaction, user) => {
-  if (user.bot) {
+  if (user.bot || messageReaction.message.guild.id !== client.config.mainGuild) {
     return;
   }
 
@@ -17,7 +17,7 @@ module.exports = async (client, messageReaction, user) => {
 
       if (roleID) {
         // This reaction corresponds to a role
-        const member = await client.guilds.cache.first().members.fetch(user.id);
+        const member = await client.guilds.cache.get(client.config.mainGuild).members.fetch(user.id);
         if (member && member.roles.cache.has(roleID)) {
           member.roles.remove(roleID, '[Auto] Remove Reaction Role');
         }
@@ -29,7 +29,7 @@ module.exports = async (client, messageReaction, user) => {
       const roleID = reactionRoleMenu.reactions[messageReaction.emoji.id || messageReaction.emoji.identifier];
 
       if (roleID) {
-        const member = await client.guilds.cache.first().members.fetch(user.id);
+        const member = await client.guilds.cache.get(client.config.mainGuild).members.fetch(user.id);
         if (member) {
           // Check if they have any of the other roles in this list and remove them.
           const rolesToRemove = [];
@@ -54,9 +54,21 @@ module.exports = async (client, messageReaction, user) => {
       const roleID = reactionRoleMenu.reactions[messageReaction.emoji.id || messageReaction.emoji.identifier];
 
       if (roleID) {
-        const member = await client.guilds.cache.first().members.fetch(user.id);
+        const member = await client.guilds.cache.get(client.config.mainGuild).members.fetch(user.id);
         if (member && !member.roles.cache.has(roleID)) {
           member.roles.add(roleID, '[Auto] Multiple Reaction Role Add');
+        }
+      }
+      break;
+    }
+    case 'restricted': {
+      // Members must be in the server for a certain amount of time before they can recieve roles from this menu.
+      const roleID = reactionRoleMenu.reactions[messageReaction.emoji.id || messageReaction.emoji.identifier];
+
+      if (roleID) {
+        const member = await client.guilds.cache.get(client.config.mainGuild).members.fetch(user.id);
+        if (member && (Date.now() - member.joinedTimestamp) > reactionRoleMenu.time) {
+          member.roles.add(roleID, '[Auto] Restricted Reaction Role Add');
         }
       }
       break;
@@ -65,10 +77,10 @@ module.exports = async (client, messageReaction, user) => {
       break;
   }
 
-  // If message has a cumulative count of reactions over 4000, reset all the reactions on the message.
+  // If message has a cumulative count of reactions over 500, reset all the reactions on the message.
   let totalReactions = 0;
   messageReaction.message.reactions.cache.forEach((reaction) => { totalReactions += reaction.count; });
-  if (totalReactions > 4000) {
+  if (totalReactions > 500) {
     // Remove all reactions.
     messageReaction.message.reactions.removeAll()
       .then((message) => {

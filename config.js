@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 const config = {
   token: 'NzM3MzU5MzY3NDk3NTgwNjA1.Xx8NbA.o5TrXwR244_WlCK5L5e3x6TBd0I',
+  // MongoDB URI
+  mongoURI: 'mongodb://user:pass@127.0.0.1:27017/?authSource=authdbname',
   // Settings
   prefix: '%',
   verifiedRole: '',
@@ -22,7 +24,7 @@ const config = {
   imageLinkLimit: 3,
 
   // No-Mention channels
-  noMentionChannels: ['channelID'],
+  noMentionChannels: [''],
 
   // Ban appeals
   banAppealLink: 'LINK',
