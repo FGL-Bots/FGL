@@ -8,7 +8,7 @@ module.exports.run = (client, message) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['rm'],
-  permLevel: 'Mod',
+  permLevel: 'Admin',
 };
 
 module.exports.help = {

@@ -113,7 +113,6 @@ const bannedWordsArray = client.bannedWordsDB.array();
 client.bannedWordsFilter = new Searcher(bannedWordsArray, {
   keySelector: (s) => s.word, threshold: 1, returnMatchData: true, useSellers: false,
 });
-
 client.login(config.token).then(() => {
   console.log('Bot successfully logged in.');
 }).catch(() => {

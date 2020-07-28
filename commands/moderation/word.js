@@ -73,7 +73,7 @@ module.exports.run = (client, message, args, level) => { // eslint-disable-line 
 module.exports.conf = {
   guildOnly: true,
   aliases: [],
-  permLevel: 'Head Mod',
+  permLevel: 'Junior Admin',
   args: 2,
 };
 

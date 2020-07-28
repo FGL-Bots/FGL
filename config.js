@@ -3,21 +3,27 @@ const config = {
   token: 'NzM3MzU5MzY3NDk3NTgwNjA1.Xx8NbA.o5TrXwR244_WlCK5L5e3x6TBd0I',
   // MongoDB URI
   mongoURI: 'mongodb://user:pass@127.0.0.1:27017/?authSource=authdbname',
+
+  // Raid Settings
+  raidJoinsPerSecond: 60,
+  raidJoinCount: 1,
+
   // Settings
   prefix: '%',
-  verifiedRole: '',
-  reddRole: '',
-  headReddRole: '',
+  verifiedRole: "737405129682190356",
+  jrmodRole: '',
   modRole: '',
-  headModRole: '',
-  adminRole: '',
+  srmodRole: '',
+  jradminRole: '',
+  adminRole: '734297098597433364',
+  botadminRole: '',
+  ownerRole: '',
   staffChat: '733768995798384704',
   modMail: '',
   reportMail: '',
-  actionLog: '737399289226985642',
-  joinLeaveLog: '737399289226985642',
-  modLog: '737399289226985642',
-  
+  actionLog: '733768995798384704',
+  joinLeaveLog: '733768995798384704',
+  modLog: '733768995798384704',
   // Newline Limit Settings
   newlineLimitChannels: [],
   newlineLimit: 10,
@@ -53,12 +59,12 @@ const config = {
   permLevels: [
     {
       level: 0,
-      name: 'User',
+      name: 'User', // This is a regular unverified user.
       check: () => true,
     },
     {
       level: 1,
-      name: 'Verified',
+      name: 'Verified', // This is a verified user.
       check: (client, message) => {
         if (message.guild) {
           const verifiedRoleObj = message.guild.roles.cache.get(config.verifiedRole);
@@ -72,12 +78,12 @@ const config = {
     },
     {
       level: 2,
-      name: 'Redd',
+      name: 'Junior Moderator', // This is a Junior Moderator
       check: (client, message) => {
         if (message.guild) {
-          const reddObj = message.guild.roles.cache.get(config.reddRole);
+          const jrmodObj = message.guild.roles.cache.get(config.jrmodRole);
 
-          if (reddObj && message.member.roles.cache.has(reddObj.id)) {
+          if (jrmodObj && message.member.roles.cache.has(jrmodObj.id)) {
             return true;
           }
         }
@@ -86,12 +92,12 @@ const config = {
     },
     {
       level: 3,
-      name: 'Head Redd',
+      name: 'Moderator', // This is a Moderator
       check: (client, message) => {
         if (message.guild) {
-          const headReddObj = message.guild.roles.cache.get(config.headReddRole);
+          const modObj = message.guild.roles.cache.get(config.modRole);
 
-          if (headReddObj && message.member.roles.cache.has(headReddObj.id)) {
+          if (modObj && message.member.roles.cache.has(modObj.id)) {
             return true;
           }
         }
@@ -100,12 +106,12 @@ const config = {
     },
     {
       level: 4,
-      name: 'Mod',
+      name: 'Senior Moderator', // This is a Senior Moderator
       check: (client, message) => {
         if (message.guild) {
-          const modRoleObj = message.guild.roles.cache.get(config.modRole);
+          const srmodRoleObj = message.guild.roles.cache.get(config.srmodRole);
 
-          if (modRoleObj && message.member.roles.cache.has(modRoleObj.id)) {
+          if (srmodRoleObj && message.member.roles.cache.has(srmodRoleObj.id)) {
             return true;
           }
         }
@@ -114,12 +120,12 @@ const config = {
     },
     {
       level: 5,
-      name: 'Head Mod',
+      name: 'Junior Admin', // This is an Junior Admin and/or fallback role
       check: (client, message) => {
         if (message.guild) {
-          const headModRoleObj = message.guild.roles.cache.get(config.headModRole);
+          const jradminRoleObj = message.guild.roles.cache.get(config.jradminRole);
 
-          if (headModRoleObj && message.member.roles.cache.has(headModRoleObj.id)) {
+          if ((jradminRoleObj && message.member.roles.cache.has(jradminRoleObj.id)) || message.member.hasPermission('ADMINISTRATOR')) {
             return true;
           }
         }
@@ -128,12 +134,12 @@ const config = {
     },
     {
       level: 6,
-      name: 'Admin',
+      name: 'Admin', // This is an Admin
       check: (client, message) => {
         if (message.guild) {
           const adminRoleObj = message.guild.roles.cache.get(config.adminRole);
 
-          if ((adminRoleObj && message.member.roles.cache.has(adminRoleObj.id)) || message.member.hasPermission('ADMINISTRATOR')) {
+          if ((adminRoleObj && message.member.roles.cache.has(adminRoleObj.id))) {
             return true;
           }
         }
@@ -141,29 +147,32 @@ const config = {
       },
     },
     {
-      level: 7,
-      name: 'Server Owner',
+      level: 8,
+      name: 'Bot Admin', // This is an Bot Admin
       check: (client, message) => {
-        if (message.guild && message.author.id === message.guild.ownerID) {
-          return true;
+        if (message.guild) {
+          const botadminRoleObj = message.guild.roles.cache.get(config.botadminRole);
+
+          if ((botadminRoleObj && message.member.roles.cache.has(botadminRoleObj.id))) {
+            return true;
+          }
         }
         return false;
       },
     },
     {
-      level: 8,
-      name: 'Bot Support',
-      check: (client, message) => config.support.includes(message.author.id),
-    },
-    {
       level: 9,
-      name: 'Bot Admin',
-      check: (client, message) => config.admins.includes(message.author.id),
-    },
-    {
-      level: 10,
-      name: 'Bot Owner',
-      check: (client, message) => config.ownerID === message.author.id,
+      name: 'Server Owners', // This is an owner
+      check: (client, message) => {
+        if (message.guild) {
+          const ownerRoleObj = message.guild.roles.cache.get(config.ownerRole);
+
+           if ((ownerRoleObj && message.member.roles.cache.has(ownerRoleObj.id))) {
+             return true;
+           }
+        }
+        return false;
+      }
     },
   ],
 };

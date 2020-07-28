@@ -23,15 +23,15 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.conf = {
   guildOnly: true,
-  aliases: ['beestingdel', 'beedel', 'bsdel', 'stingdel', 'med', 'cure'],
-  permLevel: 'Head Redd',
+  aliases: ['warndel'],
+  permLevel: 'Moderator',
   args: 1,
 };
 
 module.exports.help = {
-  name: 'medicine',
+  name: 'delwarn',
   category: 'moderation',
-  description: 'Remove bee stings on server members.',
+  description: 'Remove warnings on server members.',
   usage: 'Medicine <case number>',
-  details: '<case number> => The case number for the sting to be removed.',
+  details: '<case number> => The case number for the warning to be removed.',
 };

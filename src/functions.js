@@ -194,7 +194,6 @@ module.exports = (client) => {
 
   // eslint-disable-next-line no-unused-vars
   client.searchMember = (name, threshold = 0.5) => undefined;
-
   client.clearSongQueue = () => {
   };
 
@@ -220,11 +219,10 @@ module.exports = (client) => {
         }
      })
   });
-
     // Send message to staff with prompts
     client.raidMessage = await staffChat.send(`**##### RAID MODE ACTIVATED #####**
 
-A list of members that is raiding is currently being created.
+A list of members that is raiding is currently being created here.
 This message updates every 5 seconds, and you should wait to decide until the count stops increasing.
 
 If you would like to remove any of the members from the list, use the \`.raidremove <ID>\` command.
@@ -330,7 +328,7 @@ Would you like to ban all ${client.raidJoins.length} members that joined in the 
           newMembers.forEach((mem) => {
             msg += `\n${mem.user.tag} (${mem.id})`;
           });
-          joinLeaveLog.send(msg, { split: true });
+          staffChat.send(msg, { split: true });
           msg = '';
         }
       }

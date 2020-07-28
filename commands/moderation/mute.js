@@ -33,6 +33,14 @@ module.exports.run = async (client, message, args, level) => {
   if (!member) {
     return client.error(message.channel, 'Invalid Member!', 'Please mention a valid member of this server!');
   }
+  // Check if user is mutable
+  tgt_user = args[0].replace(/[\\<>@#&!]/g, "");
+  tgt_pos = message.guild.members.cache.get(tgt_user).roles.highest.position;
+  cur_pos = message.member.roles.highest.position;
+  console.log(tgt_pos, cur_pos);
+  if(tgt_pos >= cur_pos) {
+    return client.error(message.channel, "You do not have permission to mute this member", "You cannot mute this user as they have a higher role than you");
+  }
 
   // Kick member if in voice
   if (member.voice.channel) {
@@ -48,7 +56,7 @@ module.exports.run = async (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['m'],
-  permLevel: 'Redd',
+  permLevel: 'Moderator',
   args: 1,
 };
 

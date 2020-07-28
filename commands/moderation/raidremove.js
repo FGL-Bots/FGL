@@ -22,7 +22,7 @@ module.exports.run = (client, message, args) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['rr'],
-  permLevel: 'Mod',
+  permLevel: 'Admin',
   args: 1,
 };
 

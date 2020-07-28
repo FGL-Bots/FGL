@@ -12,6 +12,14 @@ module.exports.run = async (client, message, args, level) => {
   if (!member.kickable) {
     return client.error(message.channel, 'Member Not Kickable!', 'I cannot kick this user! Do they have a higher role? Do I have kick permissions? Are you trying to kick the owner?');
   }
+  // Check if user is kickable
+  tgt_user = args[0].replace(/[\\<>@#&!]/g, "");
+  tgt_pos = message.guild.members.cache.get(tgt_user).roles.highest.position;
+  cur_pos = message.member.roles.highest.position;
+  console.log(tgt_pos, cur_pos);
+  if(tgt_pos >= cur_pos) {
+    return client.error(message.channel, "You do not have permission to kick this member", "You cannot kick this user as they have a higher role than you");
+  }
 
   // Sets reason shown in audit logs
   const reason = args[1] ? args.slice(1).join(' ') : 'No reason provided';
@@ -34,7 +42,7 @@ module.exports.run = async (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['k'],
-  permLevel: 'Mod',
+  permLevel: 'Moderator',
   args: 1,
 };
 

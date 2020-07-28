@@ -125,7 +125,7 @@ module.exports.run = async (client, message, args, level, Discord) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['t'],
-  permLevel: 'User',
+  permLevel: 'Verified',
 };
 
 module.exports.help = {

@@ -18,7 +18,7 @@ module.exports.run = (client, message, args, level, Discord) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['lockch'],
-  permLevel: 'Admin',
+  permLevel: 'Senior Moderator',
 };
 
 module.exports.help = {

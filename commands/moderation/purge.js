@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['p'],
-  permLevel: 'Mod',
+  permLevel: 'Moderator',
   args: 1,
 };
 

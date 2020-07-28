@@ -59,7 +59,7 @@ module.exports.run = async (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: false,
   aliases: ['warnings'],
-  permLevel: 'User',
+  permLevel: 'Verified',
 };
 
 module.exports.help = {

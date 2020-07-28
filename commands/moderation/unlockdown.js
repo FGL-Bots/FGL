@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args, level) => {
         }
      })
   });
-  return client.success(message.channel, "**Server unlock was successful**", "The server has been fully unlocked. Everyone can now cht again!");
+  return client.success(message.channel, "**Server unlock was successful**", "The server has been fully unlocked. Everyone can now chat again!");
 };
 
 module.exports.conf = {
