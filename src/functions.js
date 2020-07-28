@@ -246,8 +246,12 @@ Would you like to ban all ${client.raidJoins.length} members that joined in the 
           const interval = setInterval(() => {
             if (client.raidJoins.length !== 0) {
               // Ban the next member
-              client.raidJoins.shift().ban({ days: 1, reason: 'Member of raid.' })
-                .catch(console.error);
+              try {
+                client.raidJoins.shift().ban({ days: 1, reason: 'Member of raid.' })
+              }
+			  catch (err) {
+                staffChat.send(`Could not ban a member who was raiding due to error ${err}`);
+              }
             } else {
               // We've finished banning, annouce that raid mode is ending.
               staffChat.send('Finished banning all raid members. Raid Mode is deactivated.');

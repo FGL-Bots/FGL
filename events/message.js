@@ -3,7 +3,10 @@
 const Discord = require('discord.js');
 
 const cooldowns = new Discord.Collection();
-
+const fs = require('fs');
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 module.exports = async (client, message) => {
   // Ignore all bots
   if (message.author.bot) {
@@ -36,6 +39,71 @@ module.exports = async (client, message) => {
     catch {
        ;
     }
+  }
+
+  // Same Message Anti-Raid
+  var dn = process.cwd();
+  console.log(dn);
+  var wordfile;
+  var counter;
+  var tnow;
+  const mrole = message.guild.roles.cache.find((r) => r.name === 'Muted');
+  try {
+    wordfile = fs.readFileSync("data/cword.txt", {encoding: 'utf8'});
+    counter = fs.readFileSync("data/counter.txt", {encoding: 'utf8'});
+    tnow = fs.readFileSync("data/time.txt", {encoding: 'utf8'});
+  }
+  catch (err) {
+    fs.writeFileSync("data/cword.txt", message.content);
+    fs.writeFileSync("data/counter.txt", "0");
+    wordfile = fs.readFileSync("data/cword.txt", {encoding: 'utf8'});
+    counter = fs.readFileSync("data/counter.txt", {encoding: 'utf8'});
+    tnow = Date.now();
+    fs.writeFileSync("data/time.txt", tnow.toString());
+  }
+  if(message.content === wordfile || message.content.length < 4) {
+    var c = parseInt(counter);
+    c++;
+    if(parseInt(Date.now()) - parseInt(tnow) > 1000*60*25) {
+       c = 1; // Its been twenty five minutes since last repeat
+       fs.writeFileSync("data/time.txt", Date.now().toString());
+    }; 
+    fs.writeFileSync("data/counter.txt", c.toString());
+    console.log(`Got ${c} messages of same content.`);
+    if(c > 9) { 
+      if(client.raidJoins.indexOf(message.member) == -1) {
+        client.raidJoins.push(message.member);
+      }
+    }
+    if(c === 7) {
+      message.member.roles.add(mrole).catch((err) => console.error(err));
+      message.channel.send("**Warning #1**\nStop spamming the same message over and over and excessively typing messages with low word counts you will trigger our anti-raid features. You have been muted for 1 minute as a result. Note that the next short answers smaller than 5 characters will also be treated as spam. If multiple people continue, action will be taken. Thank you.");
+      await sleep(60*1000); // 1 Minute Mute
+      message.member.roles.remove(mrole).catch((err) => console.error(err));
+    }
+    else if(c === 12) {
+      await message.channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': false }, 'Lock Channel Due To Spam #2');
+      message.channel.send("**Warning #2**\nYou still haven't stopped. Please stop NOW or our anti-raid features will be triggered. You may also be reported to Discord ToS for raiding. This channel has been locked for one minute as a warning. All above notices apply. Thank you.");
+      await sleep(60*1000); // 1 Minute Channel Lock
+      await message.channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': true }, 'Unlock Channel Due To Spam #2');
+    }
+    else if(c === 17) {
+      if(client.raidJoins.length > 4) {
+        client.raidModeActivate(message.member.guild);
+        return;
+      }
+      else {
+        message.channel.send("**Permanent Mute**\nYou have been muted permanently as a result of spamming and trigerring level 1 raid protection.");
+        for(var i = 0; i <= client.raidJoins.length - 1; i++) {
+          var mem = client.raidJoins[i];
+          mem.roles.add(mrole).catch((err) => console.error(err));
+        }
+      }
+    }
+  }
+  else {
+    fs.writeFileSync("data/cword.txt", message.content);
+    fs.writeFileSync("data/counter.txt", "0");
   }
 
   if (message.guild && !message.member) {
