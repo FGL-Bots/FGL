@@ -81,6 +81,6 @@ module.exports.help = {
   name: 'word',
   category: 'moderation',
   description: 'Adds or removes words and phrases from the banned words database',
-  usage: '.word <add|remove> <word|"multiple words"> <ban> <#channels>\`',
+  usage: 'word <add|remove> <word|"multiple words"> <ban> <#channels>\`',
   details: '<add|remove> => Whether to add or remove words or phrases from the database.\n<word|"multiple words"> => The word or phrase to add to the database. NOTE: Use quotes (") when adding phrases.\n<ban> => Whether to ban the member automatically for using this word or phrase.\n<#channels> => The channels for which this word or phrase is banned. NOTE: Only needed if the word or phrase is not global.',
 };

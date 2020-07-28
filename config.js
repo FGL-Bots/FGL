@@ -11,11 +11,11 @@ const config = {
   modRole: '',
   headModRole: '',
   adminRole: '',
-  staffChat: '',
+  staffChat: '733768995798384704',
   modMail: '',
   reportMail: '',
-  actionLog: '',
-  joinLeaveLog: '',
+  actionLog: '737399289226985642',
+  joinLeaveLog: '737399289226985642',
   modLog: '737399289226985642',
   
   // Newline Limit Settings
