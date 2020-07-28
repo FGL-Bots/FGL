@@ -11,10 +11,15 @@ module.exports = async (client, message) => {
   }
 
   // React in needs-voting channel
-  const channel = message.guild.channels.cache.find(channel => channel.name === "voting");
-  var cid;
   try {
-    let cid = channel.id;
+     const channel = message.guild.channels.cache.find(channel => channel.name === "voting");
+     var cid;
+     try {
+       let cid = channel.id;
+     }
+     catch {
+       let cid = '';
+     }
   }
   catch {
     let cid = '';

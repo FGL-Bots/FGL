@@ -24,6 +24,8 @@ const config = {
   actionLog: '733768995798384704',
   joinLeaveLog: '733768995798384704',
   modLog: '733768995798384704',
+  applyChannel: '737697479436271673',
+
   // Newline Limit Settings
   newlineLimitChannels: [],
   newlineLimit: 10,
