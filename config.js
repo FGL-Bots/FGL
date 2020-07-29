@@ -25,6 +25,8 @@ const config = {
   joinLeaveLog: '733768995798384704',
   modLog: '733768995798384704',
   applyChannel: '737697479436271673',
+  botChannel: '738013262297432135',
+  staffCommands: '738013354479714386',
 
   // Newline Limit Settings
   newlineLimitChannels: [],

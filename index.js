@@ -36,7 +36,8 @@ client.emoji = emoji;
 client.previous_message = "";
 client.antispam_counter = 0;
 client.antispam_time = Date.now();
-
+client.botCommandsId = config.botChannel;
+client.staffCommandsId = config.staffCommands;
 fs.readdir('./events/', (err, files) => {
   if (err) {
     return console.error(err);
