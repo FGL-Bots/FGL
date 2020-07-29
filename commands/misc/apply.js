@@ -41,7 +41,8 @@ module.exports.run = async (client, message, args, level, Discord) => {
         return;
       }
       else {
-        dmChannel.send("Invalid response. Please type submit to submit your application.");
+        dmChannel.send("Invalid response. Closing application...");
+        collector.stop();
         return;
       }
     }
