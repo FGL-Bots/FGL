@@ -44,7 +44,7 @@ module.exports = async (client, message) => {
      client.antispam_time = Date.now();
   */
 
-  rslur = ["nigger", "nigga", "homo", "pedo", "gay", "liberal", "commie", "communist", "democrat", "bitch"]
+  rslur = ["nigger", "nigga", "homo", "pedo", "gay", "liberal", "commie", "communist", "democrat", "bitch", "faggot", "fag"]
 
   // Racial Slurs Check
   if(message.guild != null) {
