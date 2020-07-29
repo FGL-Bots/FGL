@@ -242,6 +242,7 @@ Would you like to ban all ${client.raidJoins.length} members that joined in the 
           // Log that the banning is beginning and who approved of the action.
           client.success(staffChat, 'Banning!', `User ${modUser.tag} has chosen to ban the raid. It may take some time to finish banning all raid members.`);
           client.raidBanning = true;
+          client.mtmp = client.raidJoins.length;
           // Create a setInterval to ban members without rate limiting.
           const interval = setInterval(() => {
             if (client.raidJoins.length !== 0) {
@@ -255,7 +256,7 @@ Would you like to ban all ${client.raidJoins.length} members that joined in the 
             } else {
               // We've finished banning, annouce that raid mode is ending.
               staffChat.send('Finished banning all raid members. Raid Mode is deactivated.');
-              joinLeaveLog.send(`The above ${client.raidMembersPrinted} members have been banned.`);
+              joinLeaveLog.send(`The above ${client.mtmp} members have been banned.`);
               // Reset all raid variables
               client.raidMode = false;
               // Deactivate Raid Banning after a few seconds to allow for other events generated to finish
