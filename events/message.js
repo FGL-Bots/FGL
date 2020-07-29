@@ -3,7 +3,6 @@
 const Discord = require('discord.js');
 
 const cooldowns = new Discord.Collection();
-const fs = require('fs');
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
