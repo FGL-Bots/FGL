@@ -44,11 +44,23 @@ module.exports = async (client, message) => {
      client.antispam_time = Date.now();
   */
 
-  rslur = ["nigger", "nigga", "homo", "pedo"]
+  rslur = ["nigger", "nigga", "homo", "pedo", "gay", "liberal", "commie", "communist", "democrat", "bitch"]
+
+  // Racial Slurs Check
+  if(message.guild != null) {
+  	 const mrole = message.guild.roles.cache.find((r) => r.name === 'Muted');
+	 for(var i = 0; i < rslur.length; i++) {
+    	if(message.content.toLowerCase().includes(rslur[i])) {
+       		message.channel.send("**Permanent Mute**\nYou have been muted permanently as a result of typing racial slurs, zalgo or politics. Please DM FGL Mod Mail if you wish to appeal this.");
+       		message.member.roles.add(mrole).catch((err) => console.error(err));
+			return;
+    	}
+  	}
+ }
   // Same Message Anti-Raid (outside DM's)
   if(message.guild != null) {
   	const mrole = message.guild.roles.cache.find((r) => r.name === 'Muted');
-  	if(message.content === client.previous_message || message.content.length <= 5 || rslur.includes(message.content)) {
+  	if(message.content === client.previous_message || message.content.length <= 5) {
         if(message.channel.id === client.botCommandsId || message.channel.id === client.staffCommandsId) {
            // This is in the a channel, dont update counter or do anything
            console.log("In bot channel");
@@ -83,7 +95,7 @@ module.exports = async (client, message) => {
         	return;
       	}
       	else {
-        	message.channel.send("**Permanent Mute**\nYou have been muted permanently as a result of spamming and trigerring level 1 raid protection.");
+        	message.channel.send("**Permanent Mute**\nYou have been muted permanently as a result of spamming and triggering level 1 raid protection.");
         	for(var i = 0; i <= client.raidJoins.length - 1; i++) {
           		var mem = client.raidJoins[i];
           		mem.roles.add(mrole).catch((err) => console.error(err));
