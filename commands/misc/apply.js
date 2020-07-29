@@ -2,7 +2,7 @@
 module.exports.run = async (client, message, args, level, Discord) => {
   const dmChannel = await message.member.createDM();
   const questions = [
-    "Just for confirmation, please retype your tag." 
+    "Just for confirmation, please retype your tag.", 
     "What is your timezone?",
     "How old are you right now?",                  
     "Why do you want to be a moderator?", 
