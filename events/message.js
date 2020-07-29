@@ -12,7 +12,6 @@ module.exports = async (client, message) => {
   if (message.author.bot) {
     return;
   }
-
   // React in needs-voting channel
   try {
      const channel = message.guild.channels.cache.find(channel => channel.name === "voting");
@@ -41,53 +40,38 @@ module.exports = async (client, message) => {
     }
   }
 
+  /* client.previous_message = "";
+     client.antispam_counter = 0;
+     client.antispam_time = Date.now();
+  */
+
   // Same Message Anti-Raid
-  var dn = process.cwd();
-  console.log(dn);
-  var wordfile;
-  var counter;
-  var tnow;
   const mrole = message.guild.roles.cache.find((r) => r.name === 'Muted');
-  try {
-    wordfile = fs.readFileSync("data/cword.txt", {encoding: 'utf8'});
-    counter = fs.readFileSync("data/counter.txt", {encoding: 'utf8'});
-    tnow = fs.readFileSync("data/time.txt", {encoding: 'utf8'});
-  }
-  catch (err) {
-    fs.writeFileSync("data/cword.txt", message.content);
-    fs.writeFileSync("data/counter.txt", "0");
-    wordfile = fs.readFileSync("data/cword.txt", {encoding: 'utf8'});
-    counter = fs.readFileSync("data/counter.txt", {encoding: 'utf8'});
-    tnow = Date.now();
-    fs.writeFileSync("data/time.txt", tnow.toString());
-  }
-  if(message.content === wordfile || message.content.length < 4) {
-    var c = parseInt(counter);
-    c++;
-    if(parseInt(Date.now()) - parseInt(tnow) > 1000*60*25) {
-       c = 1; // Its been twenty five minutes since last repeat
-       fs.writeFileSync("data/time.txt", Date.now().toString());
+  if(message.content === client.previous_message || (message.content.length < 4 && client.antispam_counter > 5)) {
+    client.antispam_counter++; // Update antispam counter
+    if(parseInt(Date.now()) - parseInt(client.antispam_time) > 1000*60*25) {
+       client.antispam_counter = 1; // Its been twenty five minutes since last repeat
+       client.antispam_time = Date.now(); // Update antispam time
     }; 
-    fs.writeFileSync("data/counter.txt", c.toString());
-    console.log(`Got ${c} messages of same content.`);
-    if(c > 9) { 
+    console.log(`Got ${client.antispam_counter} messages of same content: ${client.previous_message}`);
+    if(client.antispam_counter > 9) { 
       if(client.raidJoins.indexOf(message.member) == -1) {
         client.raidJoins.push(message.member);
       }
     }
-    if(c === 7) {
+    if(client.antispam_counter === 7) {
       message.member.roles.add(mrole).catch((err) => console.error(err));
       message.channel.send("**Warning #1**\nStop spamming the same message over and over and excessively typing messages with low word counts you will trigger our anti-raid features. You have been muted for 1 minute as a result. Note that the next short answers smaller than 5 characters will also be treated as spam. If multiple people continue, action will be taken. Thank you.");
       await sleep(60*1000); // 1 Minute Mute
       message.member.roles.remove(mrole).catch((err) => console.error(err));
     }
-    else if(c === 12) {
+    else if(client.antispam_counter === 12) {
       await message.channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': false }, 'Lock Channel Due To Spam #2');
       message.channel.send("**Warning #2**\nYou still haven't stopped. Please stop NOW or our anti-raid features will be triggered. You may also be reported to Discord ToS for raiding. This channel has been locked for one minute as a warning. All above notices apply. Thank you.");
       await sleep(60*1000); // 1 Minute Channel Lock
       await message.channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': true }, 'Unlock Channel Due To Spam #2');
     }
-    else if(c === 17) {
+    else if(client.antispam_counter === 17) {
       if(client.raidJoins.length > 4) {
         client.raidModeActivate(message.member.guild);
         return;
@@ -100,10 +84,15 @@ module.exports = async (client, message) => {
         }
       }
     }
+    else if(client.antispam_counter === 23) {
+      // At this point, even permanent mutes have not worked, most likely due to more raiders joining or a failed mute or sleeper agents. Activate raid mode.
+      client.raidModeActivate(message.member.guild);
+    }
   }
   else {
-    fs.writeFileSync("data/cword.txt", message.content);
-    fs.writeFileSync("data/counter.txt", "0");
+    // Update previous message and antispam counter
+    client.previous_message = message.content;
+    client.antispam_counter = 0;
   }
 
   if (message.guild && !message.member) {

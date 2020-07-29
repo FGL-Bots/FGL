@@ -33,6 +33,9 @@ require('./src/functions')(client);
 client.config = config;
 client.version = `v${version}`;
 client.emoji = emoji;
+client.previous_message = "";
+client.antispam_counter = 0;
+client.antispam_time = Date.now();
 
 fs.readdir('./events/', (err, files) => {
   if (err) {
