@@ -21,7 +21,6 @@ module.exports.run = async (client, message, args, level) => {
   tgt_user = args[0].replace(/[\\<>@#&!]/g, "");
   tgt_pos = message.guild.members.cache.get(tgt_user).roles.highest.position;
   cur_pos = message.member.roles.highest.position;
-  console.log(tgt_pos, cur_pos);
   if(tgt_pos >= cur_pos) {
     return client.error(message.channel, "You do not have permission to ban this member", "You cannot ban this user as they have a higher role than you");
   }

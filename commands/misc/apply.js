@@ -44,9 +44,7 @@ module.exports.run = async (client, message, args, level, Discord) => {
         return;
       }
     }
-	console.log(`Collected ${m.content} for pane ${pane}`);
     ans[pane] = m.content;
-    console.log(ans);
     dmChannel.send(questions[pane]);
     pane++;
   });

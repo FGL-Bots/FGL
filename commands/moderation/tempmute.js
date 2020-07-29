@@ -47,19 +47,32 @@ module.exports.run = async (client, message, args, level) => {
     }
   }
 
+  // Get reason
+  var reason = "";
+  for(var i = 2; i <= args.length - 1; i++) {
+    reason += args[i];
+  }
+
   // If no user mentioned, display this
   if (!member) {
     return client.error(message.channel, 'Invalid Member!', 'Please mention a valid member of this server!');
   }
 
+  member.send(`You have been muted in ${member.guild.name} for ${args[1]} ${t} for reason: ${reason}.\nPlease DM FGL Mod Mail if you are not automatically unmuted after this time or if you have any queries.`);
+
   // Kick member if in voice
   if (member.voice.channel) {
     member.voice.kick();
   }
-  // If the user is an admin, don't let them be muted
-  if(member.hasPermission('ADMINISTRATOR')) {
-    return client.error(message.channel, 'Invalid Member!', 'The member in question is an admin, you may not mute them!');
+
+  // Check if user is mutable
+  tgt_user = args[0].replace(/[\\<>@#&!]/g, "");
+  tgt_pos = message.guild.members.cache.get(tgt_user).roles.highest.position;
+  cur_pos = message.member.roles.highest.position;
+  if(tgt_pos >= cur_pos) {
+    return client.error(message.channel, "You do not have permission to mute this member", "You cannot mute this user as they have a higher role than you");
   }
+
   // Adds the role to the member, removes the community role and deletes the message that initiated the command, wait, then unmute
   member.roles.add(role).catch((err) => console.error(err));
   member.roles.remove(role_community).catch((err) => console.error(err)); 
@@ -75,13 +88,13 @@ module.exports.conf = {
   guildOnly: true,
   aliases: [''],
   permLevel: 'Junior Moderator',
-  args: 2,
+  args: 3,
 };
 
 module.exports.help = {
   name: 'tempmute',
   category: 'moderation',
   description: 'Gives the mentioned user the Muted role for set amount of time',
-  usage: 'tempmute <@user> time',
-  details: '<@user> => Any valid member of the server, time => amount of time',
+  usage: 'tempmute <@user> time reason',
+  details: '<@user> => Any valid member of the server, time => amount of time, reason => reason for the tempmute',
 };
