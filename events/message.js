@@ -44,19 +44,17 @@ module.exports = async (client, message) => {
      client.antispam_time = Date.now();
   */
 
+  rslur = ["nigger", "nigga", "homo", "pedo"]
   // Same Message Anti-Raid (outside DM's)
   if(message.guild != null) {
   	const mrole = message.guild.roles.cache.find((r) => r.name === 'Muted');
-  	if(message.content === client.previous_message || (message.content.length < 4 && client.antispam_counter > 5)) {
+  	if(message.content === client.previous_message || message.content.length <= 5 || rslur.includes(message.content)) {
         if(message.channel.id === client.botCommandsId || message.channel.id === client.staffCommandsId) {
            // This is in the a channel, dont update counter or do anything
+           console.log("In bot channel");
            return;
         }
 	    client.antispam_counter++; // Update antispam counter
-    	if(parseInt(Date.now()) - parseInt(client.antispam_time) > 1000*60*25) {
-       		client.antispam_counter = 1; // Its been twenty five minutes since last repeat
-       		client.antispam_time = Date.now(); // Update antispam time
-    	};
         // If we hit more than 5 members doing a raid within 45 seconds, activate raid mode
         if(client.raidJoins.length > 5 && parseInt(Date.now()) - client.antispam_time < 45*1000) {
             client.raidModeActivate(message.member.guild);
@@ -98,9 +96,11 @@ module.exports = async (client, message) => {
     	}
   	}
   	else {
-    	// Update previous message and antispam counter
-    	client.previous_message = message.content;
-    	client.antispam_counter = 0;
+   		client.previous_message = message.content;
+        setTimeout(() => {      
+        	client.antispam_counter = 0;
+        	client.antispam_time = Date.now();
+        }, 1000*60*25);
   	}
   }
   if (message.guild && !message.member) {
