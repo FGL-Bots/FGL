@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const config = {
-  token: 'NzM3MzU5MzY3NDk3NTgwNjA1.Xx8NbA.o5TrXwR244_WlCK5L5e3x6TBd0I',
+  token: 'NzQyMDU4NDQxMzY3MDkzMjcy.XzAlxw.lKPwlGe8nVA0PBgO5JtkvEHk5jg',
   // MongoDB URI
   mongoURI: 'mongodb://user:pass@127.0.0.1:27017/?authSource=authdbname',
 
@@ -9,24 +9,24 @@ const config = {
   raidJoinCount: 1,
 
   // Settings
-  prefix: '%',
-  verifiedRole: "737405129682190356",
-  jrmodRole: '',
-  modRole: '',
-  srmodRole: '',
-  jradminRole: '',
-  adminRole: '734297098597433364',
-  botadminRole: '',
-  ownerRole: '',
-  staffChat: '733768995798384704',
+  prefix: '=',
+  verifiedRole: "734869160441675820",
+  jrmodRole: '734869160449933315',
+  modRole: '734869160449933316',
+  srmodRole: '734869160449933317',
+  jradminRole: '734869160450064466',
+  adminRole: '734869160450064467',
+  botadminRole: '734869160450064469',
+  ownerRole: '734869160454258882',
+  staffChat: '739684937887645767',
   modMail: '',
   reportMail: '',
-  actionLog: '733768995798384704',
-  joinLeaveLog: '733768995798384704',
-  modLog: '733768995798384704',
-  applyChannel: '737697479436271673',
-  botChannel: '738013262297432135',
-  staffCommands: '738013354479714386',
+  actionLog: '734869161976791159',
+  joinLeaveLog: '734869161976791159',
+  modLog: '4',
+  applyChannel: '741363806231592990',
+  botChannel: '741737593502433410',
+  staffCommands: '734869161976791158',
 
   // Newline Limit Settings
   newlineLimitChannels: [],
@@ -49,15 +49,15 @@ const config = {
   },
 
   // Bot Perms and Stuff
-  ownerID: 'userID',
+  ownerID: ['715406424947294290'],
 
-  admins: ['userID', 'userID'],
+  admins: ['', ''],
 
-  ignoreMember: ['userID'],
+  ignoreMember: [''],
 
-  ignoreChannel: ['channelID'],
+  ignoreChannel: [''],
 
-  support: ['userID', 'userID'],
+  support: ['', ''],
 
   // Guild Perms and Stuff
   permLevels: [
@@ -182,3 +182,4 @@ const config = {
 };
 
 module.exports = config;
+

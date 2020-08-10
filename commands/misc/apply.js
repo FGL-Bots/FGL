@@ -40,24 +40,25 @@ function cleanArray(actual) {
       pane++;
       return;
     }
-    if(m.content.toLowerCase() === 'stop' || uwarned === 1) {
-      dmChannel.send("Stopped your application. Thank you and have a good day!");
-      stopped = 1;
-      collector.stop();
-      return;
-    }
     if(pane === questions.length + 1) {
       if(m.content === "submit") {
         dmChannel.send("Submitted your application. Thank you and have a good day");
         collector.stop();
         return;
       }
-      else {
+      if (uwarned === 0){
         dmChannel.send("Invalid response. Please type stop to close the application and type submit to submit it. Note that continuing to give an invalid response will stop your application");
         uwarned = 1;
         return;
       }
     }
+    if(m.content.toLowerCase() === 'stop' || uwarned === 1) {
+      dmChannel.send("Stopped your application. Thank you and have a good day!");
+      stopped = 1;
+      collector.stop();
+      return;
+    }
+
     if(pane === 0) {
     	dmChannel.send(`**${questions[pane]}**`);
     	pane++;
