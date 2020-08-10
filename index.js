@@ -4,7 +4,6 @@
 const Discord = require('discord.js');
 const Enmap = require('enmap');
 const fs = require('fs');
-const Twitter = require('twitter-lite');
 const { Searcher } = require('fast-fuzzy');
 
 const client = new Discord.Client({
@@ -34,8 +33,6 @@ client.config = config;
 client.version = `v${version}`;
 client.emoji = emoji;
 client.previous_message = "";
-client.antispam_counter = 0;
-client.antispam_time = Date.now();
 client.botCommandsId = config.botChannel;
 client.staffCommandsId = config.staffCommands;
 fs.readdir('./events/', (err, files) => {
