@@ -15,6 +15,7 @@ module.exports.run = (client, message, args, level, Discord) => {
     msg = '';
     while(i <= args.length - 1) {
       msg += args[i];
+      msg += " ";
       i++;
     }
     console.log(channel, role, args[0]);
