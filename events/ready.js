@@ -25,7 +25,7 @@ module.exports = (client) => {
 
       setInterval(() => {
         client.memberStats.set(client.memberStats.autonum, { time: Date.now(), members: guild.memberCount });
-        client.user.setActivity(`FGL E-Sports with ${guild.memberCount} users!`);
+        client.user.setActivity(`Fates List with ${guild.memberCount} users!`);
       }, 30000);
 
       // Save the current collection of guild invites.

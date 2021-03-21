@@ -28,8 +28,13 @@ function cleanArray(actual) {
   var stopped = 0;
   var uwarned = 0;
   var begun = 0;
-  dmChannel.send(`Hi there. Welcome to FGL Staff Applications. If you wish to stop the application at any time, please type stop. To start your application, please type your username#descriminator and hit enter.\n\n`);
-  collector.on('collect', m => {
+try {
+  await dmChannel.send(`Hi there. Welcome to FGL Staff Applications. If you wish to stop the application at any time, please type stop. To start your application, please type your username#descriminator and hit enter.\n\n`)
+}
+catch (err) { return message.channel.send("I could not DM you as you have blocked DMs either from me or from the whole server")}
+  
+message.channel.send("Started your application!\nGood luck!");
+collector.on('collect', m => {
     if(m.author.bot) {
       return;
     }
