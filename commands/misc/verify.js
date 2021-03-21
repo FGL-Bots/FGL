@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 module.exports.run = (client, message, args, level) => {
-  const role = message.guild.roles.cache.find((r) => r.name === "Community");
+  const role = message.guild.roles.cache.find((r) => r.id === client.config.verifiedRole);
   const roleName = role.name;
   if (message.member.roles.cache.has(role.id)) {
     return client.error(message.channel, 'You are already verified into the server', '');
@@ -22,7 +22,7 @@ module.exports.conf = {
 module.exports.help = {
   name: 'verify',
   category: 'misc',
-  description: 'Verifies user',
+  description: 'Verifies user if they want to run bot commands',
   usage: 'verify',
   details: '',
 };

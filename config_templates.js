@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const config = {
-  token: 'NzM4ODMyMDY2MTgzMDM2OTk5.XyRo-w._Xnzls06pJ2ZS79lSnedfYKMm9U',
+  token: 'TOKEN HERE SIR',
   // MongoDB URI
   mongoURI: 'mongodb://user:pass@127.0.0.1:27017/?authSource=authdbname',
 

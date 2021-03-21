@@ -1,12 +1,2 @@
-# Node crap
-node_modules
-
-# Configs
 config.js
-configtest.js
-
-# Data
-data
-
-# VSCode
-.vscode
+node_modules
