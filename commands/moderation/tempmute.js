@@ -4,8 +4,8 @@ function sleep(ms) {
 }
 module.exports.run = async (client, message, args, level) => {
   // Sets the role to the Muted role
-  const role = message.guild.roles.cache.find((r) => r.name === 'Muted');
-  const role_community = message.guild.roles.cache.find((r) => r.name === 'Community');
+  const role = message.guild.roles.cache.find((r) => r.id === client.config.mutedRole);
+  const role_community = message.guild.roles.cache.find((r) => r.id === client.config.verifiedRole);
   if(args[1].includes('s')) {
     args[1] = args[1].slice(0, -1);
     var multiplier = 1000; // Seconds
@@ -86,8 +86,7 @@ module.exports.run = async (client, message, args, level) => {
 
 module.exports.conf = {
   guildOnly: true,
-  aliases: [''],
-  permLevel: 'Junior Moderator',
+  permLevel: 'Bot Reviewer',
   args: 3,
 };
 

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports.run = async (client, message, args, level) => {
   // Sets the role to the Muted role
-  const role = message.guild.roles.cache.find((r) => r.name === 'Muted');
+  const role = message.guild.roles.cache.find((r) => r.id === client.config.mutedRole);
 
   // Sets the member to the user mentioned
   let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
@@ -43,7 +43,7 @@ module.exports.run = async (client, message, args, level) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['um'],
-  permLevel: 'Junior Moderator',
+  permLevel: 'Bot Reviewer',
   args: 1,
 };
 

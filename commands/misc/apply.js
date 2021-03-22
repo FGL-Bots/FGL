@@ -13,12 +13,13 @@ function cleanArray(actual) {
   const questions = [
     "What is your timezone?",
     "How old are you right now?",                  
-    "Why do you want to be a moderator?", 
+    "Why do you want to be a bot reviewer?", 
     "If someone is being bullied, what do you do?",
     "If someone is abusing their role, what do you do?",
     "What do you do during a staff disagreement?",
     "What do you do in an uncomfortable situation?",
-    "Have you moderated any servers before? If yes, please type them here."      
+    "What would you do if a bot mostly worked but had one or two issues?",
+    "Have you moderated any servers before? If yes, please type them here, otherwise, say no"      
   ];                                     
   const filter = m => m.channel.type === 'dm' || m.author.bot === 0;
   const collector = dmChannel.createMessageCollector(filter, { });
@@ -29,7 +30,7 @@ function cleanArray(actual) {
   var uwarned = 0;
   var begun = 0;
 try {
-  await dmChannel.send(`Hi there. Welcome to FGL Staff Applications. If you wish to stop the application at any time, please type stop. To start your application, please type your username#descriminator and hit enter.\n\n`)
+  await dmChannel.send(`Hi there. Welcome to Fates List Staff Applications. If you wish to stop the application at any time, please type stop. To start your application, please type your username#descriminator and hit enter.\n\n`)
 }
 catch (err) { return message.channel.send("I could not DM you as you have blocked DMs either from me or from the whole server")}
   
