@@ -10,7 +10,7 @@ module.exports.run = (client, message, args, level, Discord) => {
       if (channel.id !== message.channel.id) {
         client.success(message.channel, 'Channel Locked!', 'No one can send messages until the channel is unlocked! To unlock the channel, use \`.unlockchannel\`.');
       }
-      channel.send("**Channel Locked**!", "This channel has been locked by an administrator. Thank you for your patience.");
+      channel.send("**:lock:  Channel Locked!**", "This channel has been locked by a staff member - You are not muted. Expect more updates to be posted shortly.");
     })
     .catch((error) => client.error(message.channel, 'Channel Lock Failed!', `The channel failed to be locked because: \`${error}\``));
 };

@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args, level, Discord) => {
 module.exports.conf = {
   guildOnly: true,
   aliases: ['un', 'users', 'username'],
-  permLevel: 'Bot Reviewer',
+  permLevel: 'Junior Moderator',
 };
 
 module.exports.help = {

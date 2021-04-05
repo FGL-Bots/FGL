@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 module.exports.run = async (client, message, args, level) => {
   // Sets the role to the Muted role
-  const role = message.guild.roles.cache.find((r) => r.name === 'Muted');
-  const role_community = message.guild.roles.cache.find((r) => r.name === 'Community');
+  const role = message.guild.roles.cache.find((r) => r.id === client.config.mutedRole);
+  const role_community = message.guild.roles.cache.find((r) => r.id === client.config.verifiedRole);
 
   // Sets the member to the user mentioned
   let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
@@ -36,19 +36,19 @@ module.exports.run = async (client, message, args, level) => {
 
   // Get reason
   var reason = "";
-  for(var i = 1; i <= args.length; i++) {
-    reason += args[i];
+  for(var i = 1; i <= args.length - 1; i++) {
+    reason += " " + args[i];
   }
   if(reason === "") {
-    member.send(`You have been muted in ${member.guild.name}. There was no specified reason. This mute expires when a moderator a administrator decides to unmute you.\nPlease DM FGL Mod Mail if you have any queries.`);
+    member.send(`You have been muted in ${member.guild.name}. There was no specified reason. This mute expires when a moderator a administrator decides to unmute you.\nPlease DM Mod Mail if you have any queries.`);
   }
   else {
-    member.send(`You have been muted in ${member.guild.name} for reason: ${reason}. This mute expires when a moderator or a administrator decides to unmute you.\nPlease DM FGL Mod Mail if you have any queries.`);
+    member.send(`You have been muted in ${member.guild.name} for reason: ${reason}. This mute expires when a moderator or a administrator decides to unmute you.\nPlease DM Mod Mail if you have any queries.`);
   }
 
   // Adds the role to the member, removes the community role and deletes the message that initiated the command
+  await member.roles.remove(member.roles.cache).catch((err) => console.error(err));
   member.roles.add(role).catch((err) => console.error(err));
-  member.roles.remove(role_community).catch((err) => console.error(err));
   message.delete().catch((err) => console.error(err));
   return message.channel.send(`Successfully muted ${member}!`).catch((err) => console.error(err));
 };

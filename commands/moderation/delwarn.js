@@ -7,12 +7,15 @@ module.exports.run = async (client, message, args) => {
 
   if (client.infractionDB.has(caseNum.toString())) {
     const userID = client.infractionDB.get(caseNum);
+    console.log(client.infractionDB)
     // Remove the caseNum => userID entry in infractionDB
     client.infractionDB.delete(caseNum.toString());
     // Remove the infraction from the user
     const infs = client.userDB.get(userID, 'infractions');
-    const infRemoved = infs.filter((inf) => inf.case === caseNum)[0];
-    client.userDB.set(userID, infs.filter((inf) => inf.case !== caseNum), 'infractions');
+    console.log(infs)
+    const infRemoved = infs.filter((inf) => inf.case == caseNum);
+    console.log(infRemoved)
+    client.userDB.set(userID, infs.filter((inf) => inf.case != caseNum), 'infractions');
     // Notify that the infraction was removed
     const user = await client.users.fetch(userID);
     return client.success(message.channel, 'Deleted Warning Successfully!', `**${user.tag}** had their warn removed successfully.`);

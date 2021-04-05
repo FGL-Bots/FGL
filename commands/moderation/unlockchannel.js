@@ -10,7 +10,7 @@ module.exports.run = (client, message, args, level, Discord) => {
       if (channel.id !== message.channel.id) {
         client.success(message.channel, 'Channel Unlocked!', 'Members can now send messages in that channel!');
       }
-      channel.send("**Channel Unlocked**!\nThis channel has been unlocked. You can tyoe again now!");
+      channel.send("**:unlock: Channel Unlocked!**\nThis channel has been unlocked. Thank you for your patience.");
     })
     .catch((error) => client.error(message.channel, 'Channel Unlock Failed!', `The channel failed to be unlocked because: \`${error}\``));
 };

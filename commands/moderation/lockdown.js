@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args, level) => {
     channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': false }, 'Lockdown Server')
       .then((channel) => {
          try {
-           client.info(channel, "**Server Lockdown**!", "The whole server has been locked down by an administrator. Please DM FGL Mod Mail if you have any questions or DM an admin or higher if and only if FGL Mod Mail is disabled. Thank you for your patience");
+           client.info(channel, "**:lock:  Server Lockdown!**", "The server has been locked by a staff member - You are not muted. Check <#827965586067816448> for more information.");
         }
         catch {
            ;

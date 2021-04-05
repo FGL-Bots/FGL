@@ -1,32 +1,35 @@
-/* eslint-disable max-len */
+h/* eslint-disable max-len */
 const config = {
-  token: 'TOKEN HERE SIR',
+  //token: 'NzAwNzg2ODY2MTcyOTg1NDY2.XpoAoA.jMuHsmKxVzX-hL9UX6t4-EDS0Xo',
+  
+  token: "ODI3OTU0MDA4NjIyNzU5OTU3.YGiiQg.MD50IUYDxjXbrq9rB-G59bBaeWc",
+
   // MongoDB URI
   mongoURI: 'mongodb://user:pass@127.0.0.1:27017/?authSource=authdbname',
 
   // Raid Settings
-  raidJoinsPerSecond: 60,
-  raidJoinCount: 1,
+  raidJoinsPerSecond: 10,
+  raidJoinCount: 5,
 
   // Settings
-  prefix: 'fl!',
-  verifiedRole: "823262898482446396",
-  botrevRole: '789941907563216897',
-  modRole: '789935016690843708',
+  prefix: '!',
+  verifiedRole: "812818128525590573",
+  jrmodRole: '812818128546430981',
+  modRole: '812818128546430982',
   srmodRole: '789935018192666635',
-  jradminRole: '823264108903137300',
-  adminRole: '789935015131742228',
-  botadminRole: '792181964933038130',
-  ownerRole: '789935014275317780',
-  staffChat: '792273078335569950',
+  jradminRole: '812818128555737132',
+  adminRole: '812818128555737132',
+  botadminRole: '827947237983649832',
+  ownerRole: '812818128555737134',
+  staffChat: '812818129599070230',
   modMail: '',
   reportMail: '',
-  actionLog: '804763203698425856',
-  joinLeaveLog: '790048313452789780',
-  modLog: '804763203698425856',
-  applyChannel: '823266222823964682',
-  botChannel: '789946995929251840',
-  staffCommands: '823266430845845534',
+  actionLog: '812818129839325205',
+  joinLeaveLog: '812818129839325208',
+  modLog: '812818129839325205',
+  applyChannel: '820469313705738271',
+  botChannel: '812818129062461456',
+  staffCommands: '812818129599070231',
 
   // Newline Limit Settings
   newlineLimitChannels: [],
@@ -49,7 +52,7 @@ const config = {
   },
 
   // Bot Perms and Stuff
-  ownerID: ['563808552288780322'],
+  ownerID: ['739129528210685983'],
 
   admins: ['', ''],
 
@@ -82,10 +85,10 @@ const config = {
     },
     {
       level: 2,
-      name: 'Bot Reviewer', // This is a Junior Moderator
+      name: 'Junior Moderator', // This is a Junior Moderator
       check: (client, message) => {
         if (message.guild) {
-          const botrevObj = message.guild.roles.cache.get(config.botrevRole);
+          const jrmodObj = message.guild.roles.cache.get(config.jrmodRole);
 
           if (jrmodObj && message.member.roles.cache.has(jrmodObj.id)) {
             return true;

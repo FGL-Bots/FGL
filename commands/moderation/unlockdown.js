@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args, level) => {
     channel.updateOverwrite(message.guild.id, { 'SEND_MESSAGES': true }, 'Unlockdown Server')
       .then((channel) => {
          try {
-           client.info(channel, "**Server Unlockdown**!", "The whole server has been unlocked down by an administrator. You can chat now!");
+           client.info(channel, ":unlock: **Server Unlocked**!", "The whole server has been unlocked down by an administrator. You can chat now!");
         }
         catch {
            ;

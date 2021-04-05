@@ -86,7 +86,7 @@ module.exports.run = async (client, message, args, level) => {
 
 module.exports.conf = {
   guildOnly: true,
-  permLevel: 'Bot Reviewer',
+  permLevel: 'Junior Moderator',
   args: 3,
 };
 

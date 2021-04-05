@@ -13,12 +13,11 @@ function cleanArray(actual) {
   const questions = [
     "What is your timezone?",
     "How old are you right now?",                  
-    "Why do you want to be a bot reviewer?", 
+    "Why do you want to be a staff member here? What position do you hope to be?", 
     "If someone is being bullied, what do you do?",
     "If someone is abusing their role, what do you do?",
     "What do you do during a staff disagreement?",
-    "What do you do in an uncomfortable situation?",
-    "What would you do if a bot mostly worked but had one or two issues?",
+    "What do you do in an uncomfortable situation? Be realistic here",
     "Have you moderated any servers before? If yes, please type them here, otherwise, say no"      
   ];                                     
   const filter = m => m.channel.type === 'dm' || m.author.bot === 0;
